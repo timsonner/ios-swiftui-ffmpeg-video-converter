@@ -8,6 +8,10 @@
 //import Foundation
 //
 
+// custom type, mostly just for a test
+//let mtsType = UTType(exportedAs: "com.timsonner.mts-document", conformingTo: .video)
+
+
 //struct ContentView : View {
 //    @State private var presentImporter = false
 //
@@ -26,3 +30,14 @@
 //    }
 //}
 
+// Another file importer
+
+//            .fileImporter(isPresented: $openFile, allowedContentTypes: [mtsType]) { result in
+//                        switch result {
+//                        case .success(let url):
+//                            print(url)
+//                            //use `url.startAccessingSecurityScopedResource()` if you are going to read the data
+//                        case .failure(let error):
+//                            print(error)
+//                        }
+//                    }

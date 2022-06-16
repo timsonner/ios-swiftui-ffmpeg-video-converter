@@ -10,23 +10,26 @@ import AVFoundation
 import UniformTypeIdentifiers
 
 class ViewModelFoo: ObservableObject {
-    @Published var fileName = "" // all views refresh on change
+    // all views refresh on change
+    @Published var fileName = ""
+    @Published var userSelectedFormat = ""
+    @Published var selectedFormat: AVFileType = .mp4
+    @Published var exportFileName = ""
+    
+    let supportedFormats = [".pls", ".aifc", ".m4r", ".wav", ".3gp", ".3g2", ".flac", ".avi", ".m2a", ".aa", ".aac", ".mpa", ".m3u", ".mov", ".aiff", ".ttml", ".m4v", ".amr", ".caf", ".m4a", ".mp1", ".m1a", ".mp4", ".mp2", ".mp3", ".itt", ".au", ".eac3", ".webvtt", ".vtt", ".ac3", ".m4p", ".mqv"]
+
     func ConvertWithAVFoundation(fileURL: URL){
         let preset = AVAssetExportPresetHighestQuality
-        let outFileType = AVFileType.mp4 // can be changed
-        let supportedExtensions = ["pls", "aifc", "m4r", "wav", "3gp", "3g2", "flac", "avi", "m2a", "aa", "aac", "mpa", "m3u", "mov", "aiff", "ttml", "m4v", "amr", "caf", "m4a", "mp4", "mp1", "m1a", "mp4", "mp2", "mp3", "itt", "au", "eac3", "webvtt", "vtt", "ac3", "m4p", "mqv"]
-
-        let mtsType = UTType(exportedAs: "com.timsonner.mts-document", conformingTo: .video)
+        let outFileType = AVFileType(rawValue: selectedFormat.rawValue) // can be changed
         print("start of fileImporter()")
-        
         if fileURL.startAccessingSecurityScopedResource() {
             print("Success: get() \(fileURL)")
-            self.fileName = fileURL.lastPathComponent
-            let anAsset = AVAsset(url: fileURL)
-            // Your source AVAsset movie in HEVC format //
-            let outputURLToString = "\(fileURL.deletingLastPathComponent())fff.mp4"
-            let outputURL = URL(string: outputURLToString)
-            // URL of your exported output //
+            self.fileName = fileURL.lastPathComponent // just the name of the selected file, no path
+            let anAsset = AVAsset(url: fileURL) // path to the file
+            // MARK: - Working on it...
+            let outputURLToString = "\(fileURL.deletingLastPathComponent())\(exportFileName)\(selectedFormat.rawValue)" // removes filename from path, adds the user selected filename for save
+            let outputURL = URL(string: outputURLToString) // path to save the file to
+            // Compatability check:
             AVAssetExportSession.determineCompatibility(
                 ofExportPreset: preset,
                 with: anAsset, outputFileType: outFileType
@@ -39,14 +42,20 @@ class ViewModelFoo: ObservableObject {
                 guard let exportSession = AVAssetExportSession(
                     asset: anAsset,
                     presetName: preset) else {
-                    print("Success: Asset is compatible")
+                    print("Failure: AVAssetExportSession")
                     return
                 }
+                // Do the work, actually export the file
                 exportSession.outputFileType = outFileType
                 exportSession.outputURL = outputURL
                 exportSession.exportAsynchronously {
                     // Handle export results.
                 }
+                print("Asset:\(anAsset)")
+//                print("UserFormat:\(userSelectedFormat)")
+                print("Export Format:\(self.selectedFormat)")
+                print("Export URL:\(outputURLToString)")
+
             }
         }
         

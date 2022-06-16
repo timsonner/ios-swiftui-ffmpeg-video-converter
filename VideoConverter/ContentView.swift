@@ -28,7 +28,7 @@ struct ContentView: View {
                 openFile.toggle()
             }
             .fileImporter(isPresented: $openFile, allowedContentTypes:
-                            // custom type added here
+                            // custom type added here for visiblity in selection
                           [.movie], onCompletion: {(res) in
                 do {
                     print("start of fileImporter()")
@@ -37,23 +37,23 @@ struct ContentView: View {
                 } catch {
                     print("Error: get() file")
                     print(error.localizedDescription)
-                    
                 }
             })
-//            .fileImporter(isPresented: $openFile, allowedContentTypes: [mtsType]) { result in
-//                        switch result {
-//                        case .success(let url):
-//                            print(url)
-//                            //use `url.startAccessingSecurityScopedResource()` if you are going to read the data
-//                        case .failure(let error):
-//                            print(error)
-//                        }
-//                    }
+            
             Text(vm.fileName)
         }
         .padding()
-        // end of VStack
+        Picker("FileFormat", selection: $vm.selectedFormat) {
+            ForEach(vm.supportedFormats.sorted().reversed(), id: \.self) {
+                Text($0)
+            }
+        }
+        .pickerStyle(.menu)
+        TextField("Export file name", text: $vm.exportFileName, prompt: Text("New file name"))
     }
+    
+        // end of VStack
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
