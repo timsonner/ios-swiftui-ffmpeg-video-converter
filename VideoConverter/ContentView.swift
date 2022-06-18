@@ -10,14 +10,7 @@ import AVFoundation
 import UniformTypeIdentifiers
 
 struct ContentView: View {
-  
-    @ObservedObject var vm = ViewModelFoo()
-    @State private var openFile = false
-    
-    // These settings will encode using H.264.
-    let preset = AVAssetExportPresetHighestQuality
-    let outFileType = AVFileType.mp4
-    let mtsType = UTType(exportedAs: "com.timsonner.mts-document", conformingTo: .video)
+    @ObservedObject var vm = ConvertMediaViewModel()
     
     var body: some View {
         VStack {
@@ -25,35 +18,37 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Button("Open") {
-                openFile.toggle()
+                vm.isShowingFileDialog.toggle() // toggle var to show file picker
             }
-            .fileImporter(isPresented: $openFile, allowedContentTypes:
-                            // custom type added here for visiblity in selection
+            .fileImporter(isPresented: $vm.isShowingFileDialog, allowedContentTypes:
+                            // add custom UTType here for visiblity in file picker (.mts) for example
                           [.movie], onCompletion: {(res) in
                 do {
-                    print("start of fileImporter()")
                     let fileURL = try res.get()
-                    vm.ConvertWithAVFoundation(fileURL: fileURL)
+                    vm.sendURLToViewModel(fileURL: fileURL)
                 } catch {
                     print("Error: get() file")
                     print(error.localizedDescription)
                 }
             })
-            
-            Text(vm.fileName)
-        }
-        .padding()
-        Picker("FileFormat", selection: $vm.selectedFormat) {
-            ForEach(vm.supportedFormats.sorted().reversed(), id: \.self) {
-                Text($0)
+            Text(vm.importFileName)
+            Picker("FileFormat", selection: $vm.selectedFormat) {
+                ForEach(ConvertMediaViewModel.FileExtensionSelection.allCases) { ext in
+                    Text(ext.rawValue.capitalized)
+                }
             }
-        }
-        .pickerStyle(.menu)
-        TextField("Export file name", text: $vm.exportFileName, prompt: Text("New file name"))
+            .pickerStyle(.menu)
+            TextField("Export file name", text: $vm.exportFileName, prompt: Text("Export file name"))
+            Button("Convert media file") {
+                vm.ConvertWithAVFoundation()
+            }
+        }.padding() // end of VStack
+            .popover(isPresented: $vm.isShowingPupup) {
+                Text("Choose an export file name or import file")
+                    .font(.headline)
+                    .padding()
+            }
     }
-    
-        // end of VStack
-    
 }
 
 struct ContentView_Previews: PreviewProvider {

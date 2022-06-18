@@ -12,7 +12,7 @@
 		2B0E6B8428556B4800DA3C99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B0E6B8328556B4800DA3C99 /* Assets.xcassets */; };
 		2B0E6B8728556B4800DA3C99 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B0E6B8628556B4800DA3C99 /* Preview Assets.xcassets */; };
 		2B4BF53A2855B8E00005F0DB /* scraps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4BF5392855B8E00005F0DB /* scraps.swift */; };
-		2B4BF53D285818BA0005F0DB /* ConvertWithAVFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4BF53C285818BA0005F0DB /* ConvertWithAVFoundation.swift */; };
+		2B4BF53D285818BA0005F0DB /* ConvertMediaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4BF53C285818BA0005F0DB /* ConvertMediaViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +23,7 @@
 		2B0E6B8628556B4800DA3C99 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2B4BF5392855B8E00005F0DB /* scraps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scraps.swift; sourceTree = "<group>"; };
 		2B4BF53B2855C27C0005F0DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		2B4BF53C285818BA0005F0DB /* ConvertWithAVFoundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertWithAVFoundation.swift; sourceTree = "<group>"; };
+		2B4BF53C285818BA0005F0DB /* ConvertMediaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertMediaViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +58,7 @@
 			children = (
 				2B4BF53B2855C27C0005F0DB /* Info.plist */,
 				2B0E6B7F28556B4600DA3C99 /* VideoConverterApp.swift */,
-				2B4BF53C285818BA0005F0DB /* ConvertWithAVFoundation.swift */,
+				2B4BF53C285818BA0005F0DB /* ConvertMediaViewModel.swift */,
 				2B0E6B8128556B4600DA3C99 /* ContentView.swift */,
 				2B0E6B8328556B4800DA3C99 /* Assets.xcassets */,
 				2B0E6B8528556B4800DA3C99 /* Preview Content */,
@@ -148,7 +148,7 @@
 				2B0E6B8228556B4600DA3C99 /* ContentView.swift in Sources */,
 				2B4BF53A2855B8E00005F0DB /* scraps.swift in Sources */,
 				2B0E6B8028556B4600DA3C99 /* VideoConverterApp.swift in Sources */,
-				2B4BF53D285818BA0005F0DB /* ConvertWithAVFoundation.swift in Sources */,
+				2B4BF53D285818BA0005F0DB /* ConvertMediaViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

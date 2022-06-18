@@ -8,10 +8,12 @@
 //import Foundation
 //
 
+// import UniformTypeIdentifiers
 // custom type, mostly just for a test
-//let mtsType = UTType(exportedAs: "com.timsonner.mts-document", conformingTo: .video)
+// let mtsType = UTType(exportedAs: "com.timsonner.mts-document", conformingTo: .video)
 
 
+// example file importer:
 //struct ContentView : View {
 //    @State private var presentImporter = false
 //
