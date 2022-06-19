@@ -7,8 +7,22 @@
 
 import Foundation
 import AVFoundation
+// #include <ffmpegkit/FFmpegKit.h>
+import ffmpegkit
+
+// To use the Objective-C with Swift code:
+// Under Build Settings, in Packaging, make sure the Defines Module setting for the framework target is set to Yes.
+// Under Build Phases, Link Binary With Libraries, add ffmpegkit.xcframework
 
 class ConvertMediaViewModel: ObservableObject {
+    
+    func ConvertWithFFMPEG() {
+        // FFmpegSession *session = [FFmpegKit execute:@"-i file1.mp4 -c:v mpeg4 file2.mp4"];
+        FFmpegKit.execute("-i \(fileURL!.deletingLastPathComponent())00035.mts -c:v mpeg4 file2.mp4") // need to remove %20 encoding as space in file url
+        // ReturnCode *returnCode = [session getReturnCode];
+       
+    }
+    
     // all views refresh on change
     @Published var importFileName = ""
     @Published var exportFileName = ""
@@ -16,7 +30,6 @@ class ConvertMediaViewModel: ObservableObject {
     @Published var isShowingPupup = false
     @Published var isShowingFileDialog = false
     @Published var fileURL = URL(string: "")
-    
     
     enum FileExtensionSelection: String, CaseIterable, Identifiable {
         case mp4, mov, m4v

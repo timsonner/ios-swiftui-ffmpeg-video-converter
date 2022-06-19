@@ -41,6 +41,7 @@ struct ContentView: View {
             TextField("Export file name", text: $vm.exportFileName, prompt: Text("Export file name"))
             Button("Convert media file") {
                 vm.ConvertWithAVFoundation()
+                vm.ConvertWithFFMPEG()
             }
         }.padding() // end of VStack
             .popover(isPresented: $vm.isShowingPupup) {
