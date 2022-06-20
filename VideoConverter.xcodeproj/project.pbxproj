@@ -13,8 +13,7 @@
 		2B0E6B8728556B4800DA3C99 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B0E6B8628556B4800DA3C99 /* Preview Assets.xcassets */; };
 		2B4BF53A2855B8E00005F0DB /* scraps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4BF5392855B8E00005F0DB /* scraps.swift */; };
 		2B4BF53D285818BA0005F0DB /* ConvertMediaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4BF53C285818BA0005F0DB /* ConvertMediaViewModel.swift */; };
-		2B4BF555285F21C80005F0DB /* ffmpegkit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B4BF554285F21C80005F0DB /* ffmpegkit.xcframework */; };
-		5F4DD6CE9E8BD16223ACE062 /* Pods_VideoConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD03F7E7B4BE07A67AFF3AA0 /* Pods_VideoConverter.framework */; };
+		2B4BF55E286016A40005F0DB /* ffmpegkit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B4BF554285F21C80005F0DB /* ffmpegkit.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +27,6 @@
 		2B4BF53C285818BA0005F0DB /* ConvertMediaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertMediaViewModel.swift; sourceTree = "<group>"; };
 		2B4BF554285F21C80005F0DB /* ffmpegkit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ffmpegkit.xcframework; path = "Pods/ffmpeg-kit-ios-full-gpl/ffmpegkit.xcframework"; sourceTree = "<group>"; };
 		38030D89C2BD2B9DA0E23F85 /* Pods-VideoConverter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoConverter.debug.xcconfig"; path = "Target Support Files/Pods-VideoConverter/Pods-VideoConverter.debug.xcconfig"; sourceTree = "<group>"; };
-		DD03F7E7B4BE07A67AFF3AA0 /* Pods_VideoConverter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoConverter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA09CBFD1ED58A6B91D43CD /* Pods-VideoConverter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoConverter.release.xcconfig"; path = "Target Support Files/Pods-VideoConverter/Pods-VideoConverter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -37,8 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B4BF555285F21C80005F0DB /* ffmpegkit.xcframework in Frameworks */,
-				5F4DD6CE9E8BD16223ACE062 /* Pods_VideoConverter.framework in Frameworks */,
+				2B4BF55E286016A40005F0DB /* ffmpegkit.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,7 +55,6 @@
 			isa = PBXGroup;
 			children = (
 				2B4BF554285F21C80005F0DB /* ffmpegkit.xcframework */,
-				DD03F7E7B4BE07A67AFF3AA0 /* Pods_VideoConverter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

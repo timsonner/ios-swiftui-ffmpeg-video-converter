@@ -17,18 +17,36 @@ import ffmpegkit
 class ConvertMediaViewModel: ObservableObject {
     
     func ConvertWithFFMPEG() {
+        // removes filename from url path, converts URL to a string, removes encoding
+        let decodedURLString = fileURL!.absoluteString.removingPercentEncoding
         // FFmpegSession *session = [FFmpegKit execute:@"-i file1.mp4 -c:v mpeg4 file2.mp4"];
-        FFmpegKit.execute("-i \(fileURL!.deletingLastPathComponent())00035.mts -c:v mpeg4 file2.mp4") // need to remove %20 encoding as space in file url
+        //must wrap file paths in quotes
+//        let session: FFmpegSession = FFmpegKit.execute("-i \"\(decodedURLString!)35.MTS\" \"\(decodedURLString!)w00t.mp4\"")
+        
+            let foo = fileURL!.lastPathComponent.removingPercentEncoding // file name from path
+            let bar = fileURL!.pathExtension // extension of filename
+            print("🟢 Debug: last path component: \(foo!)")
+            print("🟢 Debug: path extension: \(bar)")
+ 
+        let session: FFmpegSession = FFmpegKit.execute("-version")
         // ReturnCode *returnCode = [session getReturnCode];
-       
+        let returnCode = session.getReturnCode()
+        
+        if fileURL!.startAccessingSecurityScopedResource() {
+            session.startRunning() // fires off FFmpegKit.execute()
+            print("🟡 Debug: session return code: \(String(describing: returnCode))")
+        } else {
+            print("🔴 Error: startAccessingSecurityScopedResource() is false")
+        }
     }
+    
     
     // all views refresh on change
     @Published var importFileName = ""
     @Published var exportFileName = ""
     @Published var selectedFormat: FileExtensionSelection = .mov
-    @Published var isShowingPupup = false
-    @Published var isShowingFileDialog = false
+    @Published var isShowingPopover = false
+    @Published var isShowingFileImporter = false
     @Published var fileURL = URL(string: "")
     
     enum FileExtensionSelection: String, CaseIterable, Identifiable {
@@ -41,8 +59,6 @@ class ConvertMediaViewModel: ObservableObject {
     }
     
     func ConvertWithAVFoundation(){
-        
-            print("start of ConvertWithAVFoundation()")
             let preset = AVAssetExportPresetHighestQuality
             var outputFileType = AVFileType.mp4 // can be changed
             
@@ -55,8 +71,8 @@ class ConvertMediaViewModel: ObservableObject {
                 outputFileType = AVFileType.m4v
             }
             
-        if ((fileURL?.startAccessingSecurityScopedResource()) != nil && exportFileName != "") {
-                print("Success: get() \(String(describing: fileURL))")
+        if (fileURL?.startAccessingSecurityScopedResource() != nil && exportFileName != "") {
+                print("🟢 Debug: get() \(String(describing: fileURL))")
             self.importFileName = fileURL!.lastPathComponent // just the name of the import file, no path
                 let anAsset = AVAsset(url: fileURL!) // path to the import file
                 let outputURLToString = "\(fileURL!.deletingLastPathComponent())\(exportFileName).\(selectedFormat)" // removes filename from path, adds "." and the user selected filename for export
@@ -68,16 +84,16 @@ class ConvertMediaViewModel: ObservableObject {
                     with: anAsset, outputFileType: outputFileType
                 ) { isCompatible in
                     guard isCompatible else {
-                        print("Failure: Asset not compatible")
-                        print("selectedformat: \(self.selectedFormat)")
-                        print("outFileType: \(outputFileType)")
+                        print("🔴 Error: Asset not compatible")
+                        print("🟡 Debug: selectedformat: \(self.selectedFormat)")
+                        print("🟡 Debug: outFileType: \(outputFileType)")
                         return
                     }
                     // Compatibility check succeeded, continue with export.
                     guard let exportSession = AVAssetExportSession(
                         asset: anAsset,
                         presetName: preset) else {
-                        print("Success: Asset is compatible")
+                        print("🟢 Debug: Asset is compatible")
                         return
                     }
                     // Do the work, actually export the file
@@ -89,7 +105,7 @@ class ConvertMediaViewModel: ObservableObject {
                 }
         } else {
             print("fileURL or importFilename was nil")
-            isShowingPupup.toggle()
+            isShowingPopover.toggle()
         }
     }
 }

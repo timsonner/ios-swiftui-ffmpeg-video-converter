@@ -18,16 +18,16 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Button("Open") {
-                vm.isShowingFileDialog.toggle() // toggle var to show file picker
+                vm.isShowingFileImporter.toggle() // toggle var to show file picker
             }
-            .fileImporter(isPresented: $vm.isShowingFileDialog, allowedContentTypes:
+            .fileImporter(isPresented: $vm.isShowingFileImporter, allowedContentTypes:
                             // add custom UTType here for visiblity in file picker (.mts) for example
-                          [.movie], onCompletion: {(res) in
+                          [.movie, .video, .audio, .audiovisualContent, .image], onCompletion: {(res) in
                 do {
                     let fileURL = try res.get()
                     vm.sendURLToViewModel(fileURL: fileURL)
                 } catch {
-                    print("Error: get() file")
+                    print("⛔️ Error: fileImporter couldn't get a res")
                     print(error.localizedDescription)
                 }
             })
@@ -40,11 +40,11 @@ struct ContentView: View {
             .pickerStyle(.menu)
             TextField("Export file name", text: $vm.exportFileName, prompt: Text("Export file name"))
             Button("Convert media file") {
-                vm.ConvertWithAVFoundation()
+//                vm.ConvertWithAVFoundation()
                 vm.ConvertWithFFMPEG()
             }
         }.padding() // end of VStack
-            .popover(isPresented: $vm.isShowingPupup) {
+            .popover(isPresented: $vm.isShowingPopover) {
                 Text("Choose an export file name or import file")
                     .font(.headline)
                     .padding()
